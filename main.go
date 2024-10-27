@@ -61,6 +61,11 @@ func main() {
 	v1Router.Get("/error", errorHandler)
 	v1Router.Post("/users", apiCfg.handlerCreateUser)
 	v1Router.Get("/users", apiCfg.middlewareAuth(apiCfg.handlerGetUser))
+	v1Router.Post("/feeds", apiCfg.middlewareAuth(apiCfg.handlerCreateFeed))
+	v1Router.Get("/feeds", apiCfg.handlerGetFeeds)
+	v1Router.Post("/follows", apiCfg.middlewareAuth(apiCfg.handlerCreateFollow))
+	v1Router.Get("/follows", apiCfg.middlewareAuth(apiCfg.handlerGetFollows))
+	v1Router.Delete("/follows/{feed_id}", apiCfg.middlewareAuth(apiCfg.handlerDeleteFollow))
 	router.Mount("/v1", v1Router)
 
 	// Configura el servidor HTTP
